@@ -38,6 +38,8 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char*args);
+
 static struct {
   char *name;
   char *description;
@@ -46,6 +48,7 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  { "si[N]", "Pause after N steps of single-step execution", cmd_si},
 
   /* TODO: Add more commands */
 
@@ -72,6 +75,22 @@ static int cmd_help(char *args) {
       }
     }
     printf("Unknown command '%s'\n", arg);
+  }
+  return 0;
+}
+
+static int cmd_si(char *args){
+  char *ch= strtok(NULL," ");
+  int stepnum=0;
+  if(!ch){
+    cpu_exec(1);
+  }else{
+    sscanf(ch,"%d",&stepnum);
+    if(stepnum<0){
+      printf("Error, N cannot be a negative number!!!");
+      return 0;
+    }
+    cpu_exec(stepnum);
   }
   return 0;
 }
