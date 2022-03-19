@@ -48,7 +48,7 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si [N]", "Pause after N steps of single-step execution", cmd_si },
+  { "si", "Pause after N steps of single-step execution", cmd_si },
 
   /* TODO: Add more commands */
 
@@ -81,11 +81,11 @@ static int cmd_help(char *args) {
 
 static int cmd_si(char *args){
   char *ch= strtok(NULL," ");
-  int stepnum=0;
   if(!ch){
+    //default
     cpu_exec(1);
   }else{
-    sscanf(ch,"%d",&stepnum);
+    int stepnum=atoi(ch);
     if(stepnum<0){
       printf("Error, N cannot be a negative number!!!");
       return 0;
