@@ -87,7 +87,7 @@ static int cmd_si(char *args){
   }else{
     int stepnum=atoi(ch);
     if(stepnum<0){
-      printf("Error, N cannot be a negative number!!!");
+      printf("Error, N cannot be a negative number!!!\n");
       return 0;
     }
     cpu_exec(stepnum);
