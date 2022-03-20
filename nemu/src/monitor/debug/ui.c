@@ -42,6 +42,8 @@ static int cmd_si(char *args);
 
 static int cmd_info(char *args);
 
+static int cmd_x(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -52,7 +54,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Pause after N steps of single-step execution", cmd_si },
   { "info", "Print register status", cmd_info },
-
+	{ "x", "Scan memory", cmd_x },
   /* TODO: Add more commands */
 
 };
@@ -104,6 +106,7 @@ static int cmd_info(char *args){
   
   if (strcmp(ch,"r") == 0){
 		printf("Name\tHexadecimal\tDecimal\n");
+		printf("-------------------------------");
   	for (int i=R_EAX; i<=R_EDI; i++){
 			printf("%s:\t0x%08x\t%010d\n",regsl[i-R_EAX], cpu.gpr[i-R_EAX]._32, cpu.gpr[i-R_EAX]._32);
 		}  
@@ -111,6 +114,11 @@ static int cmd_info(char *args){
     
   }
   return 0;
+}
+
+static int cmd_x(char *args){
+
+	return 0;
 }
 
 void ui_mainloop(int is_batch_mode) {
