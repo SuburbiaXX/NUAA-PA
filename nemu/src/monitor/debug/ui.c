@@ -104,7 +104,7 @@ static int cmd_info(char *args){
   
   if (strcmp(ch,"r") == 0){
   	for (int i=R_EAX; i<=R_EDI; i++){
-			printf("-Name\tHexa\tDecimal\n");
+			printf("Name\tHexadecimal\tDecimal\n");
 			printf("%s:\t0x%08x\t%010d\n",regsl[i-R_EAX], cpu.gpr[i-R_EAX]._32, cpu.gpr[i-R_EAX]._32);
 		}  
   }else if (strcmp(ch,"w") == 0){
