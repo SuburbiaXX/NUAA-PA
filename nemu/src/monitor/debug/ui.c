@@ -38,7 +38,9 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
-static int cmd_si(char*args);
+static int cmd_si(char *args);
+
+static int cmd_info(char *args);
 
 static struct {
   char *name;
@@ -49,6 +51,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Pause after N steps of single-step execution", cmd_si },
+  { "info", "Print register status", cmd_info },
 
   /* TODO: Add more commands */
 
@@ -81,16 +84,30 @@ static int cmd_help(char *args) {
 
 static int cmd_si(char *args){
   char *ch= strtok(NULL," ");
-  if(!ch){
+
+  if (!ch){
     //default
     cpu_exec(1);
   }else{
-    int stepnum=atoi(ch);
-    if(stepnum<0){
+    int stepnum = atoi(ch);
+    if (stepnum < 0){
       printf("Error, N cannot be a negative number!!!\n");
       return 0;
     }
     cpu_exec(stepnum);
+  }
+  return 0;
+}
+
+static int cmd_info(char *args){
+  char *ch=strtok(NULL," ");
+  
+  if (strcmp(ch,"r") == 0){
+  	for (int i=R_EAX; i<=R_EDI; i++){
+			printf("%s:\t%8x\t%d\n",regsl[i-R_EAX], cpu.gpr[i-R_EAX]._32, cpu.gpr[i-R_EAX]._32);
+		}  
+  }else if (strcmp(ch,"w") == 0){
+    
   }
   return 0;
 }
