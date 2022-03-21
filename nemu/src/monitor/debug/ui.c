@@ -135,7 +135,7 @@ static int cmd_x(char *args){
 //	printf("%d\t%x\n",nums,address);
 	printf("Address\tDword block\tByte sequence\n");
 	for(int i=0;i<nums;i++){
-		printf("0x%x:\t%x\n",address,vaddr_read(address,4));
+		printf("0x%x:\t%08x\n",address,vaddr_read(address,1));
 		address+=4;
 	}
 	return 0;
