@@ -140,8 +140,12 @@ static int cmd_x(char *args){
 		printf("0x%08x:\t0x%08x\t",address,temp);
 		address+=4;
 		for(int j=0;j<4;j++){
-			printf("%x ",temp&0xff);
-			temp=temp>>8;
+			if(j!=3){
+				printf("%02x ",temp & 0xff);
+			}else{
+				printf("%02x",temp & 0xff);
+			}
+			temp=temp >> 8;
 		}
 		printf("\n");
 	}
