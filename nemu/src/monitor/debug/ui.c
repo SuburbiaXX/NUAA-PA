@@ -132,12 +132,18 @@ static int cmd_x(char *args){
   sscanf(start,"%x",&address);
 
 //	printf("test\n");
-	printf("%d\t%x\n",nums,address);
+//	printf("%d\t%x\n",nums,address);
 
 	printf("Address\t\tDword block\tByte sequence\n");
 	for(int i=0;i<nums;i++){
-		printf("0x%x:\t0x%08x\n",address,vaddr_read(address,4));
+		uint32_t temp=vaddr_read(address,4);
+		printf("0x%08x:\t0x%08x\t",address,temp);
 		address+=4;
+		for(int j=0;j<4;j++){
+			printf("%x ",temp&0xff);
+			temp=temp>>8;
+		}
+		printf("\n");
 	}
 	return 0;
 }
