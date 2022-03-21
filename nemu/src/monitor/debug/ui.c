@@ -117,6 +117,20 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
+	char *time=strtok(NULL," ");
+	if (time==NULL){
+		printf("Lack of two parameters!!!");
+		return 0;
+	}
+	char *start=strtok(NULL," ");
+	if(start==NULL){
+		printf("Lack of one parameter!!!");
+		return 0;
+	}
+	int nums=atoi(time);
+
+	printf("test\n");
+	printf("%d\t0x%s\n",nums,start);
 
 	return 0;
 }
