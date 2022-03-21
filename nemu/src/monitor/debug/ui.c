@@ -128,13 +128,14 @@ static int cmd_x(char *args){
 		return 0;
 	}
 	int nums=atoi(time);
-	rtlreg_t address;
+	uint32_t address;
   sscanf(start,"%x",&address);
 
 //	printf("test\n");
 //	printf("%d\t%x\n",nums,address);
+	printf("Address\tDword block\tByte sequence");
 	for(int i=0;i<nums;i++){
-		printf("%08x\n",vaddr_read(address,4));
+		printf("0x%x%08x\n",address,vaddr_read(address,4));
 		address+=4;
 	}
 	return 0;
