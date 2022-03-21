@@ -132,8 +132,11 @@ static int cmd_x(char *args){
   sscanf(start,"%x",&address);
 
 //	printf("test\n");
-	printf("%d\t%x\n",nums,address);
-
+//	printf("%d\t%x\n",nums,address);
+	for(int i=0;i<nums;i++){
+		printf("%08x\n",vaddr_read(address,4));
+		address+=4;
+	}
 	return 0;
 }
 
