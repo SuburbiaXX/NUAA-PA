@@ -107,15 +107,20 @@ static int cmd_info(char *args){
   if (strcmp(ch,"r") == 0){
 		printf("Name\tHexadecimal\tDecimal\n");
 		printf("----------------------------------\n");
+		printf("32-bit Register:\n");
   	for (int i=R_EAX; i<=R_EDI; i++){
 			printf("%s:\t0x%08x\t%010d\n",regsl[i-R_EAX], cpu.gpr[i-R_EAX]._32, cpu.gpr[i-R_EAX]._32);
 		}
+		printf("----------------------------------\n");
+		printf("16-bit Register:\n");
 		for (int i=R_AX; i<=R_DI; i++){
 			printf("%s:\t0x%04x\t%05d\n",regsw[i-R_AX], cpu.gpr[i-R_AX]._16, cpu.gpr[i-R_AX]._16);
 		}
+		printf("----------------------------------\n");
+		printf("8-bit Register:\n");
 		for(int i=R_AH;i<=R_BH;i++){
-			printf("%s:\t0x%04x\t%03d\n", regsb[i-R_AL], cpu.gpr[i-R_AL]._8[1], cpu.gpr[i-R_AL]._8[1]);
-			printf("%s:\t0x%04x\t%03d\n", regsb[i-R_AH], cpu.gpr[i-R_AH]._8[0], cpu.gpr[i-R_AH]._8[0]);
+			printf("%s:\t0x%02x\t%03d\n", regsb[i-R_AL], cpu.gpr[i-R_AL]._8[0], cpu.gpr[i-R_AL]._8[0]);
+			printf("%s:\t0x%02x\t%03d\n", regsb[i-R_AH], cpu.gpr[i-R_AH]._8[0], cpu.gpr[i-R_AH]._8[0]);
 		}  
   }else if (strcmp(ch,"w") == 0){
     
