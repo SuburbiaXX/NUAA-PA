@@ -119,8 +119,8 @@ static int cmd_info(char *args){
 		printf("----------------------------------\n");
 		printf("8-bit Register:\n");
 		for(int i=R_AH;i<=R_BH;i++){
-			printf("%s:\t0x%02x\t%03d\n", regsb[i-R_AL], cpu.gpr[i-R_AL]._8[0], cpu.gpr[i-R_AL]._8[0]);
-			printf("%s:\t0x%02x\t%03d\n", regsb[i-R_AH], cpu.gpr[i-R_AH]._8[0], cpu.gpr[i-R_AH]._8[0]);
+			printf("%s:\t0x%02x\t\t%03d\n", regsb[i-R_AL], cpu.gpr[i-R_AH]._8[1], cpu.gpr[i-R_AH]._8[1]);
+			printf("%s:\t0x%02x\t\t%03d\n", regsb[i-R_AH], cpu.gpr[i-R_AH]._8[0], cpu.gpr[i-R_AH]._8[0]);
 		}  
   }else if (strcmp(ch,"w") == 0){
     
