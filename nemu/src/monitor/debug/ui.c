@@ -109,6 +109,9 @@ static int cmd_info(char *args){
 		printf("----------------------------------\n");
   	for (int i=R_EAX; i<=R_EDI; i++){
 			printf("%s:\t0x%08x\t%010d\n",regsl[i-R_EAX], cpu.gpr[i-R_EAX]._32, cpu.gpr[i-R_EAX]._32);
+		}
+		for (int i=R_AX; i<=R_DI; i++){
+			printf("%s:\t0x%04x\t%05d\n",regsw[i-R_AX], cpu.gpr[i-R_AX]._16, cpu.gpr[i-R_AX]._32);
 		}  
   }else if (strcmp(ch,"w") == 0){
     
