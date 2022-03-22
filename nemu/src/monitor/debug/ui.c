@@ -88,14 +88,9 @@ static int cmd_si(char *args){
   char *ch= strtok(NULL," ");
 
   if (!ch){
-    //default
     cpu_exec(1);
   }else{
     int stepnum = atoi(ch);
-    if (stepnum < 0){
-      printf("Error, N cannot be a negative number!!!\n");
-      return 0;
-    }
     cpu_exec(stepnum);
   }
   return 0;
@@ -142,9 +137,6 @@ static int cmd_x(char *args){
 	int nums=atoi(time);
 	uint32_t address;
   sscanf(start,"%x",&address);
-
-//	printf("test\n");
-//	printf("%d\t%x\n",nums,address);
 
 	printf("Address\t\tDword block\tByte sequence\n");
 	printf("---------------------------------------------\n");
