@@ -114,7 +114,7 @@ static int cmd_info(char *args){
 		printf("----------------------------------\n");
 		printf("16-bit Register:\n");
 		for (int i=R_AX; i<=R_DI; i++){
-			printf("%s:\t0x%04x\t%05d\n",regsw[i-R_AX], cpu.gpr[i-R_AX]._16, cpu.gpr[i-R_AX]._16);
+			printf("%s:\t0x%04x\t\t%05d\n",regsw[i-R_AX], cpu.gpr[i-R_AX]._16, cpu.gpr[i-R_AX]._16);
 		}
 		printf("----------------------------------\n");
 		printf("8-bit Register:\n");
