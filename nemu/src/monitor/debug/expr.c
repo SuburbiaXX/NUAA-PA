@@ -158,14 +158,14 @@ int find_dominated_op(int p, int q){
 		else if(tokens[i].type==')'){
 			count--;
 		}		
-		if(count==0){//the expression is not in a pair of parentheses
+	  else if(count==0){//the expression is not in a pair of parentheses
 			if(tokens[i].type=='+'){
 				pos=i;
 			}else if(tokens[i].type=='-'){
 				pos=i;
 			}else if(tokens[i].type=='*'){
 				pos=i;
-			}else{//div
+			}else if(tokens[i].type=='/'){
 				pos=i;
 			}
 		}
