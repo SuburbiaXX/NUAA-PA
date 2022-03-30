@@ -168,7 +168,7 @@ static int cmd_p(char *args){
 	bool flag;
 	int res = expr(args,&flag);
 	if(flag){
-		printf("%d",res);
+		printf("%d\n",res);
 	}else{
 		printf("Error! Wrong Expression\n");
 	}

@@ -148,6 +148,31 @@ static bool make_token(char *e) {
   return true;
 }
 
+int find_dominated_op(int p, int q){
+	int pos=p;
+	int count=0;
+	for (int i=p;i<=q;i++){
+		if(tokens[i].type=='('){
+			count++;
+		}		
+		else if(tokens[i].type==')'){
+			count--;
+		}		
+		if(count==0){//the expression is not in a pair of parentheses
+			if(tokens[i].type=='+'){
+				pos=i;
+			}else if(tokens[i].type=='-'){
+				pos=i;
+			}else if(tokens[i].type=='*'){
+				pos=i;
+			}else{//div
+				pos=i;
+			}
+		}
+	}
+	return pos;
+}
+
 bool check_parentheses(int p,int q){
 	if(tokens[p].type!='(' || tokens[q].type!=')'){
 		return false;
@@ -177,24 +202,31 @@ uint32_t eval(int p, int q) {
 			return 0;
     }
     else if (p == q) {
+			int res;
 			if(tokens[p].type==TK_DEC){
-				int len=strlen(tokens[p].str);
-				int res=0;
-				for(int i=0;i<len;i++){
-					int num;
-					num=tokens[p].str[i]-'0';
-					res=res*10+num;	
-				}
-				return res;
+				sscanf(tokens[p].str,"%d",&res);
 			}
+			if(tokens[p].type==TK_HEX){
+				sscanf(tokens[p].str,"%x",&res);
+			}
+			return res;
     }
     else if (check_parentheses(p, q) == true) {
         return eval(p + 1, q - 1);
     }
-    else {
-      printf("to be continue!!\n"); 
- /* We should do more things here. */
-    }
+    else{
+			int op,val1,val2;
+			op =find_dominated_op(p,q);
+      val1 = eval(p, op - 1);
+      val2 = eval(op + 1, q);
+      switch(tokens[op].type){
+        case '+': return val1 + val2;
+        case '-': return val1 - val2;
+        case '*': return val1 * val2;
+        case '/': return val1 / val2;
+        default: assert(0);
+        }
+    } 
 		return 0;
 }
 
