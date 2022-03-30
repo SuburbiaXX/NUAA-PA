@@ -161,6 +161,10 @@ static int cmd_x(char *args){
 }
 
 static int cmd_p(char *args){
+	if(args==NULL){
+		printf("The Format is: \"p EXPRESSION\"");
+		return 0;
+	}
 	bool flag;
 	int res = expr(args,&flag);
 	if(flag){
