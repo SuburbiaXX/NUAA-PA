@@ -99,17 +99,20 @@ static bool make_token(char *e) {
 					case TK_DEC:
 						tokens[nr_token].type=rules[i].token_type;
 						strncpy(tokens[nr_token].str, substr_start, substr_len);
+						tokens[nr_token].str[substr_len]='\0';
 						nr_token++;
 						break;
 					case TK_HEX:
 						tokens[nr_token].type=rules[i].token_type;
             strncpy(tokens[nr_token].str, substr_start, substr_len);
-            nr_token++;
+            tokens[nr_token].str[substr_len]='\0';
+						nr_token++;
 						break;
 					case TK_REG:
 						tokens[nr_token].type=rules[i].token_type;
 				    strncpy(tokens[nr_token].str,substr_start,substr_len);
-				    nr_token++;
+				    tokens[nr_token].str[substr_len]='\0';
+						nr_token++;
 						break;
 					case '+':
 						tokens[nr_token++].type=rules[i].token_type;
@@ -145,6 +148,57 @@ static bool make_token(char *e) {
   return true;
 }
 
+bool check_parentheses(int p,int q){
+	if(tokens[p].type!='(' || tokens[q].type!=')'){
+		return false;
+	}
+	int count=0;
+	for(int i=p+1;i<q;i++){
+		if(tokens[i].type=='('){
+			count++;
+		}
+		if(tokens[i].type==')'){
+			count--;
+		}
+		if(count<0){
+			return false;
+		}
+	}
+	if(count>0){
+		return false;
+	}
+	printf("Branket FIT!!!!!!!!!!!\n");
+	return true;
+}
+
+uint32_t eval(int p, int q) {
+    if (p > q) {
+			printf("This is a bad expression!!!\n");
+			return 0;
+    }
+    else if (p == q) {
+			if(tokens[p].type==TK_DEC){
+				int len=strlen(tokens[p].str);
+				int res=0;
+				for(int i=0;i<len;i++){
+					int num;
+					num=tokens[p].str[i]-'0';
+					res=res*10+num;	
+				}
+				return res;
+			}
+    }
+    else if (check_parentheses(p, q) == true) {
+        return eval(p + 1, q - 1);
+    }
+    else {
+      printf("to be continue!!\n"); 
+ /* We should do more things here. */
+    }
+		return 0;
+}
+
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -154,5 +208,5 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   TODO();
 
-  return 0;
+  return eval(0,nr_token-1);
 }
