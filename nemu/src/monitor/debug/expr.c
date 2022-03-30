@@ -24,14 +24,14 @@ static struct rule {
 	{"\\d+", TK_DEC},						// decimal
 	{"0x[0-9a-fA-F]+", TK_HEX},	// hexadecimal
 	{"\\$e[a-z]{2}", TK_REG},		// register
-	{"\\(", '('},								// left parenthesis
+	{"\\(", '('},							// left parenthesis
 	{"\\)", ')'},								// right parenthesis
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
 	{"\\-", '-'},					// sub
 	{"\\*", '*'},					// mul
 	{"\\/", '/'},					// div	
-  {"==", TK_EQ}         // equal
+  {"==", TK_EQ}       // equal
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
