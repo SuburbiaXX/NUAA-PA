@@ -162,7 +162,7 @@ static int cmd_x(char *args){
 
 static int cmd_p(char *args){
 	if(args==NULL){
-		printf("The Format is: \"p EXPRESSION\"");
+		printf("The Correct Format is: \"p EXPRESSION\"\n");
 		return 0;
 	}
 	bool flag;
@@ -170,7 +170,7 @@ static int cmd_p(char *args){
 	if(flag){
 		printf("%d",res);
 	}else{
-		printf("Error!\n");
+		printf("Error! Wrong Expression\n");
 	}
 	return 0;
 }
