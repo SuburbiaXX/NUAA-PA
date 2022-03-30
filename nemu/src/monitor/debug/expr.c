@@ -197,7 +197,8 @@ bool check_parentheses(int p,int q){
 }
 
 uint32_t eval(int p, int q) {
-    if (p > q) {
+    printf("%d %d",p,q);
+		if (p > q) {
 			printf("This is a bad expression!!!\n");
 			return 0;
     }
