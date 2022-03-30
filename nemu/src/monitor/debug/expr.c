@@ -170,7 +170,7 @@ int find_dominated_op(int p, int q){
 			}
 		}
 	}
-	printf("the dominated_op's pos = %d\n",pos);
+//	printf("the dominated_op's pos = %d\n",pos);
 	return pos;
 }
 
@@ -198,7 +198,7 @@ bool check_parentheses(int p,int q){
 }
 
 uint32_t eval(int p, int q) {
-    printf("%d %d\n",p,q);
+  //  printf("%d %d\n",p,q);
 		if (p > q) {
 			printf("This is a bad expression!!!\n");
 			return 0;
