@@ -164,11 +164,11 @@ int find_dominated_op(int p, int q){
 			}else if(tokens[i].type=='-'){
 				pos=i;
 			}else if(tokens[i].type=='*'){
-				if(tokens[i].type!='+'&&tokens[i].type!='-'){
+				if(tokens[pos].type!='+' && tokens[pos].type!='-'){//The previous position's operator is not a low priority operator
 					pos=i;
 				}
 			}else if(tokens[i].type=='/'){
-				if(tokens[i].type!='+'&&tokens[i].type!='-'){
+				if(tokens[pos].type!='+' && tokens[pos].type!='-'){
 					pos=i;
 				}
 			}
