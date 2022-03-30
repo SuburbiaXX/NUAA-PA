@@ -25,7 +25,7 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
-	{"\\d+", TK_DEC},						// decimal
+	{"[0-9]+", TK_DEC},						// decimal
 	{"0x[0-9a-fA-F]+", TK_HEX},	// hexadecimal
 	{"\\$e[a-z]{2}", TK_REG},		// register
 	{"\\(", '('},							// left parenthesis
