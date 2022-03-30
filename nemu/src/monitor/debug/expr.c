@@ -164,9 +164,13 @@ int find_dominated_op(int p, int q){
 			}else if(tokens[i].type=='-'){
 				pos=i;
 			}else if(tokens[i].type=='*'){
-				pos=i;
+				if(tokens[i].type!='+'&&tokens[i].type!='-'){
+					pos=i;
+				}
 			}else if(tokens[i].type=='/'){
-				pos=i;
+				if(tokens[i].type!='+'&&tokens[i].type!='-'){
+					pos=i;
+				}
 			}
 		}
 	}
