@@ -244,18 +244,26 @@ uint32_t eval(int p, int q) {
     }
     else{
 			int op;
-			//int val1,val2;
+			int val1,val2;
 			op =find_dominated_op(p,q);
-      //val1 = eval(p, op - 1);
-		  //val2 = eval(op+1,q);
+      val1 = eval(p, op - 1);
+		  val2 = eval(op+1,q);
 
-			//printf("val1 = %d  val2 = %d\n",val1,val2);
+			int n;
+
+			printf("val1 = %d  val2 = %d\n",val1,val2);
       switch(tokens[op].type){
-				case TK_NEG: return  -eval(op+1,q);
+				/*case TK_NEG: return  -eval(op+1,q);
         case '+': return eval(p, op-1) + eval(op+1,q);
         case '-': return eval(p, op-1) - eval(op+1,q);
         case '*': return eval(p, op-1) * eval(op+1,q);
         case '/': return eval(p, op-1) / eval(op+1,q);
+				*/
+				case TK_NEG: n=-val2; printf("get %d\n",n); return n;
+				case '+': n= val1 + val2; printf("get %d\n",n); return n;
+        case '-': n= val1 - val2; printf("get %d\n",n); return n;
+        case '*': n= val1 * val2; printf("get %d\n",n); return n;
+        case '/': n= val1 / val2; printf("get %d\n",n); return n;
         default: assert(0);
         }
     } 
