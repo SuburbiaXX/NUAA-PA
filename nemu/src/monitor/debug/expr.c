@@ -196,7 +196,7 @@ int find_dominated_op(int p, int q){
 			}
 		}
 	}
-	printf("the dominated_op's pos = %d\n",pos);
+	//printf("the dominated_op's pos = %d\n",pos);
 	return pos;
 }
 
@@ -244,26 +244,26 @@ uint32_t eval(int p, int q) {
     }
     else{
 			int op;
-			int val1=0,val2=0;
+			//int val1=0,val2=0;
 			op =find_dominated_op(p,q);
-      val1 = eval(p, op - 1);
-		  val2 = eval(op+1,q);
+      //val1 = eval(p, op - 1);
+		  //val2 = eval(op+1,q);
 
-			int n;
+			//int n;
 
-			printf("val1 = %d  val2 = %d\n",val1,val2);
+			//printf("val1 = %d  val2 = %d\n",val1,val2);
       switch(tokens[op].type){
-				/*case TK_NEG: return  -eval(op+1,q);
+				case TK_NEG: return  -eval(op+1,q);
         case '+': return eval(p, op-1) + eval(op+1,q);
         case '-': return eval(p, op-1) - eval(op+1,q);
         case '*': return eval(p, op-1) * eval(op+1,q);
         case '/': return eval(p, op-1) / eval(op+1,q);
-				*/
-				case TK_NEG: n=-val2; printf("get %d\n",n); return n;
+
+				/*case TK_NEG: n=-val2; printf("get %d\n",n); return n;
 				case '+': n= val1 + val2; printf("get %d\n",n); return n;
         case '-': n= val1 - val2; printf("get %d\n",n); return n;
         case '*': n= val1 * val2; printf("get %d\n",n); return n;
-        case '/': n= val1 / val2; printf("get %d\n",n); return n;
+        case '/': n= val1 / val2; printf("get %d\n",n); return n;*/
         default: assert(0);
         }
     } 
@@ -284,7 +284,7 @@ uint32_t expr(char *e, bool *success) {
 		*/
 		if(tokens[i].type=='-' && (i==0 || (tokens[i-1].type!=')' && tokens[i-1].type!=TK_DEC && tokens[i-1].type!=TK_HEX))){
 			tokens[i].type=TK_NEG;
-			printf("minus sign pos is %d\n",i);
+			//printf("minus sign pos is %d\n",i);
 		}
 	}
   return eval(0,nr_token-1);
