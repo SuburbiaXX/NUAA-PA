@@ -254,7 +254,7 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 	for (int i=0;i<nr_token;i++){
-		if(tokens[i].type=='-' && (i==0 || tokens[i-1].type=='(' || tokens[i-1].type=='+' || tokens[i-1].type=='-' || tokens[i-1].type=='*' || tokens[i-1].type=='/' )){
+		if(tokens[i].type=='-' && ((i==0 || tokens[i-1].type=='(' || tokens[i-1].type=='+' || tokens[i-1].type=='-' || tokens[i-1].type=='*' || tokens[i-1].type=='/') || (tokens[i-1].type==TK_NEG && (tokens[i+1].type==TK_DEC || tokens[i+1].type==TK_HEX)))){
 			tokens[i].type=TK_NEG;
 			printf("The minus position is %d\n",i);
 		}
