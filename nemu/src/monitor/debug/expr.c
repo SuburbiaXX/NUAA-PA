@@ -177,19 +177,19 @@ int find_dominated_op(int p, int q){
 			}
 		}*/
 			if(tokens[i].type==TK_NEG){
-				if(level<=0){
+				if(level<0){
 					level=0;
 					pos=i;
 				}
 			}
 			if(tokens[i].type=='*' || tokens[i].type=='/'){
-				if(level<=1){
+				if(level<1){
 					level=1;
 					pos=i;
 				}
 			}
 			if(tokens[i].type=='+' || tokens[i].type=='-'){
-				if(level<=2){
+				if(level<2){
 					level=2;
 					pos=i;
 				}
