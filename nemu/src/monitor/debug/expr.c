@@ -171,9 +171,9 @@ int find_dominated_op(int p, int q){
 				if(tokens[pos].type!='+' && tokens[pos].type!='-'){
 					pos=i;
 				}
-			}//else if(tokens[i].type==TK_NEG){//minus sign
-				//	pos=i;
-			//}
+			}else if(tokens[i].type==TK_NEG){
+				pos=i;
+			}
 		}
 	}
 	printf("the dominated_op's pos = %d\n",pos);
@@ -253,10 +253,10 @@ uint32_t expr(char *e, bool *success) {
 	
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-	for (int i=0;i<nr_token;i++){
-		if(tokens[i].type=='-' && ((i==0 || tokens[i-1].type=='(' || tokens[i-1].type=='+' || tokens[i-1].type=='-' || tokens[i-1].type=='*' || tokens[i-1].type=='/') || (tokens[i-1].type==TK_NEG && (tokens[i+1].type==TK_DEC || tokens[i+1].type==TK_HEX)))){
+	for(int i=0;i<nr_token;i++){
+		if(tokens[i].type=='-' && ((i==0 || tokens[i-1].type=='(' ||  tokens[i-1].type=='+' || tokens[i-1].type=='-' || tokens[i-1].type=='*' || tokens[i-1].type=='/') || (tokens[i].type==TK_NEG && (tokens[i+1].type==TK_DEC || tokens[i+1].type==TK_HEX)))){
 			tokens[i].type=TK_NEG;
-			printf("The minus position is %d\n",i);
+			printf("minus sign pos is %d\n",i);
 		}
 	}
   return eval(0,nr_token-1);
