@@ -151,6 +151,7 @@ static bool make_token(char *e) {
 int find_dominated_op(int p, int q){
 	int pos=p;
 	int count=0;
+	int level=-1;
 	for (int i=p;i<=q;i++){
 		if(tokens[i].type=='('){
 			count++;
@@ -159,7 +160,7 @@ int find_dominated_op(int p, int q){
 			count--;
 		}		
 	  else if(count==0){//the expression is not in a pair of parentheses
-			if(tokens[i].type=='+'){
+			/*if(tokens[i].type=='+'){
 				pos=i;
 			}else if(tokens[i].type=='-'){
 				pos=i; 
@@ -173,6 +174,25 @@ int find_dominated_op(int p, int q){
 				}
 			}else if(tokens[i].type==TK_NEG){
 				pos=i;
+			}
+		}*/
+			if(tokens[i].type==TK_NEG){
+				if(level<=0){
+					level=0;
+					pos=i;
+				}
+			}
+			if(tokens[i].type=='*' || tokens[i].type=='/'){
+				if(level<=1){
+					level=1;
+					pos=i;
+				}
+			}
+			if(tokens[i].type=='+' || tokens[i].type=='-'){
+				if(level<=2){
+					level=2;
+					pos=i;
+				}
 			}
 		}
 	}
@@ -247,7 +267,7 @@ uint32_t eval(int p, int q) {
 
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
-    *success = false;
+   *success = false;
     return 0;
   }else *success=true;
 	
