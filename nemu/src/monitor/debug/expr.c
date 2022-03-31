@@ -11,8 +11,8 @@ enum {
 	TK_EQ,
 	TK_DEC,
 	TK_HEX,
-	TK_REG
-
+	TK_REG,	//register
+	TK_NEG	//minus sign
   /* TODO: Add more token types */
 
 };
@@ -139,9 +139,9 @@ static bool make_token(char *e) {
       }
     }
 
-    if (i == NR_REGEX) {
-      printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
-      return false;
+		if (i == NR_REGEX) {
+			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
+			return false;
     }
   }
 
@@ -162,7 +162,7 @@ int find_dominated_op(int p, int q){
 			if(tokens[i].type=='+'){
 				pos=i;
 			}else if(tokens[i].type=='-'){
-				pos=i;
+				pos=i; 
 			}else if(tokens[i].type=='*'){
 				if(tokens[pos].type!='+' && tokens[pos].type!='-'){//The previous position's operator is not a low priority operator
 					pos=i;
@@ -171,6 +171,8 @@ int find_dominated_op(int p, int q){
 				if(tokens[pos].type!='+' && tokens[pos].type!='-'){
 					pos=i;
 				}
+			}else if(tokens[i].type==TK_NEG){//minus sign
+					pos=i;
 			}
 		}
 	}
@@ -224,7 +226,12 @@ uint32_t eval(int p, int q) {
 			int op,val1,val2;
 			op =find_dominated_op(p,q);
       val1 = eval(p, op - 1);
-      val2 = eval(op + 1, q);
+			if(tokens[op].type==TK_NEG){
+				val2= - eval(op+1,q);
+			}else{
+      	val2 = eval(op + 1, q);
+			}
+
 			printf("val1 = %d  val2 = %d\n",val1,val2);
       switch(tokens[op].type){
         case '+': return val1 + val2;
@@ -246,6 +253,10 @@ uint32_t expr(char *e, bool *success) {
 	
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
-
+	for (int i=0;i<nr_token;i++){
+		if(tokens[i].type=='-' && (i==0 || tokens[i-1].type=='(' || tokens[i-1].type=='+' || tokens[i-1].type=='-' || tokens[i-1].type=='*' || tokens[i-1].type=='/' )){
+			tokens[i].type=TK_NEG;
+		}
+	}
   return eval(0,nr_token-1);
 }
