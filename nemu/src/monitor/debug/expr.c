@@ -244,18 +244,18 @@ uint32_t eval(int p, int q) {
     }
     else{
 			int op;
-			int val1,val2;
+			//int val1,val2;
 			op =find_dominated_op(p,q);
-      val1 = eval(p, op - 1);
-		  val2 = eval(op+1,q);
+      //val1 = eval(p, op - 1);
+		  //val2 = eval(op+1,q);
 
-			printf("val1 = %d  val2 = %d\n",val1,val2);
+			//printf("val1 = %d  val2 = %d\n",val1,val2);
       switch(tokens[op].type){
-				case TK_NEG: return  -val2;// -eval(op+1,q);
-        case '+': return val1+val2;//eval(p, op-1) + eval(op+1,q);
-        case '-': return val1-val2;//eval(p, op-1) - eval(op+1,q);
-        case '*': return val1*val2;//eval(p, op-1) * eval(op+1,q);
-        case '/': return val1/val2;//eval(p, op-1) / eval(op+1,q);
+				case TK_NEG: return  -eval(op+1,q);
+        case '+': return eval(p, op-1) + eval(op+1,q);
+        case '-': return eval(p, op-1) - eval(op+1,q);
+        case '*': return eval(p, op-1) * eval(op+1,q);
+        case '/': return eval(p, op-1) / eval(op+1,q);
         default: assert(0);
         }
     } 
@@ -272,7 +272,7 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 	for(int i=0;i<nr_token;i++){
-		if(tokens[i].type=='-' && ((i==0 || tokens[i-1].type=='(' ||  tokens[i-1].type=='+' || tokens[i-1].type=='-' || tokens[i-1].type=='*' || tokens[i-1].type=='/') || (tokens[i-1].type==TK_NEG && (tokens[i+1].type==TK_DEC || tokens[i+1].type==TK_HEX)))){
+		if(tokens[i].type=='-' && /*(*/(i==0 || tokens[i-1].type=='(' ||  tokens[i-1].type=='+' || tokens[i-1].type=='-' || tokens[i-1].type=='*' || tokens[i-1].type=='/')){// || (tokens[i-1].type==TK_NEG && (tokens[i+1].type==TK_DEC || tokens[i+1].type==TK_HEX)))){
 			tokens[i].type=TK_NEG;
 			printf("minus sign pos is %d\n",i);
 		}
