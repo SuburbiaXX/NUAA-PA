@@ -160,22 +160,6 @@ int find_dominated_op(int p, int q){
 			count--;
 		}		
 	  else if(count==0){//the expression is not in a pair of parentheses
-			/*if(tokens[i].type=='+'){
-				pos=i;
-			}else if(tokens[i].type=='-'){
-				pos=i; 
-			}else if(tokens[i].type=='*'){
-				if(tokens[pos].type!='+' && tokens[pos].type!='-'){//The previous position's operator is not a low priority operator
-					pos=i;
-				}
-			}else if(tokens[i].type=='/'){
-				if(tokens[pos].type!='+' && tokens[pos].type!='-'){
-					pos=i;
-				}
-			}else if(tokens[i].type==TK_NEG){
-				pos=i;
-			}
-		}*/
 			if(tokens[i].type==TK_NEG){
 				if(level<0){
 					level=0;
@@ -280,8 +264,6 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   //TODO();
 	for(int i=0;i<nr_token;i++){
-		/*if(tokens[i].type=='-' && ((i==0 || tokens[i-1].type=='(' ||  tokens[i-1].type=='+' || tokens[i-1].type=='-' || tokens[i-1].type=='*' || tokens[i-1].type=='/') || (tokens[i-1].type==TK_NEG && (tokens[i+1].type==TK_DEC || tokens[i+1].type==TK_HEX)) || ((tokens[i-1].type==TK_NEG) && tokens[i+1].type=='-'))){
-		*/
 		if(tokens[i].type=='-' && (i==0 || (tokens[i-1].type!=')' && tokens[i-1].type!=TK_DEC && tokens[i-1].type!=TK_HEX))){
 			tokens[i].type=TK_NEG;
 			//printf("minus sign pos is %d\n",i);
