@@ -265,11 +265,13 @@ uint32_t eval(int p, int q) {
 				sscanf(tokens[p].str,"%x",&res);
 			}
 			if(tokens[p].type==TK_REG){
-				printf("%s\n",tokens[p].str);
+			//	printf("%s\n",tokens[p].str);
 				char src[4];
 				strncpy(src,tokens[p].str+1,3);
-				printf("%s\n",src);
-				//if(strcmp(tokens[p].))
+			//	printf("%s\n",src);
+				if(strcmp(src,"eip")){
+					printf("It's eip\n");
+				}
 			}
 			return res;
     }
