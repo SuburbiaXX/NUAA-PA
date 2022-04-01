@@ -269,8 +269,10 @@ uint32_t eval(int p, int q) {
 				char src[4];
 				strncpy(src,tokens[p].str+1,3);
 			//	printf("%s\n",src);
+				printf("%d\n",strlen(src));
+				printf("%d\n",strcmp(src,"eip"));
 				if(strcmp(src,"eip")==0){
-				printf("It's eip\n");
+					printf("It's eip\n");
 					res=cpu.eip;
 				}/*else{
 					for(int i=0;i<8;i++){
