@@ -266,7 +266,7 @@ uint32_t eval(int p, int q) {
 			}
 			if(tokens[p].type==TK_REG){
 			//	printf("%s\n",tokens[p].str);
-				char src[4];
+				char src[10];
 				printf("%d\n",strlen(tokens[p].str));
 	
 				strncpy(src,tokens[p].str+1,3);
