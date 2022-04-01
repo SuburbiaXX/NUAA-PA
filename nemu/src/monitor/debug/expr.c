@@ -29,11 +29,11 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
-	{"[0-9]+", TK_DEC},					// decimal
 	{"0[xX][0-9a-fA-F]+", TK_HEX},	// hexadecimal
-	{"\\$e[a-z]{2}", TK_REG},		// register
-	{"\\(", '('},								// left parenthesis
-	{"\\)", ')'},								// right parenthesis
+	{"[0-9]+", TK_DEC},							// decimal
+	{"\\$e[a-z]{2}", TK_REG},				// register
+	{"\\(", '('},										// left parenthesis
+	{"\\)", ')'},										// right parenthesis
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
 	{"\\-", '-'},					// sub
@@ -43,7 +43,7 @@ static struct rule {
 	{"!=", TK_UEQ},				// unequal
 	{"&&", TK_AND},				// and
 	{"\\|\\|", TK_OR},		// or
-	{"\\!", '!'},			// inverse
+	{"\\!", '!'},					// inverse
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
