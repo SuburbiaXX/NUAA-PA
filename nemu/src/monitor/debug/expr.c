@@ -30,7 +30,7 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 	{"[0-9]+", TK_DEC},					// decimal
-	{"0x[0-9a-fA-F]+", TK_HEX},	// hexadecimal
+	{"0[xX][0-9a-fA-F]+", TK_HEX},	// hexadecimal
 	{"\\$e[a-z]{2}", TK_REG},		// register
 	{"\\(", '('},								// left parenthesis
 	{"\\)", ')'},								// right parenthesis
