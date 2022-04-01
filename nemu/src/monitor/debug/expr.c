@@ -257,12 +257,15 @@ uint32_t eval(int p, int q) {
 			return 0;
     }
     else if (p == q) {
-			int res;
+			uint32_t res=0;
 			if(tokens[p].type==TK_DEC){
 				sscanf(tokens[p].str,"%d",&res);
 			}
 			if(tokens[p].type==TK_HEX){
 				sscanf(tokens[p].str,"%x",&res);
+			}
+			if(tokens[p].type==TK_REG){
+				printf("%s\n",tokens[p].str);
 			}
 			return res;
     }
@@ -294,8 +297,8 @@ uint32_t eval(int p, int q) {
 						return false;
 					}
 
-				case TK_POINTER://todo!!!!!
-					break;
+				case TK_POINTER:
+					return vaddr_read(eval(op+1,q),4);
 
 				case TK_AND:
 					return eval(p,op-1) && eval(op+1,q);
