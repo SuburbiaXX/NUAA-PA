@@ -11,8 +11,12 @@ enum {
 	TK_EQ,
 	TK_DEC,
 	TK_HEX,
-	TK_REG,	//register
-	TK_NEG	//minus sign
+	TK_REG,			// register
+	TK_NEG,			// negative, minus sign
+	TK_UEQ,			// unequal
+	TK_AND, 		// and
+	TK_OR,  		// or
+	TK_POINTER,	//pointer	(*)
   /* TODO: Add more token types */
 
 };
@@ -35,7 +39,11 @@ static struct rule {
 	{"\\-", '-'},					// sub
 	{"\\*", '*'},					// mul
 	{"\\/", '/'},					// div	
-  {"==", TK_EQ}      	  // equal
+  {"==", TK_EQ},      	// equal
+	{"!=", TK_UEQ},				// unequal
+	{"&&", TK_AND},				// and
+	{"\\|\\|", TK_OR},		// or
+	{"\\!", '!'},			// inverse
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -93,7 +101,7 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
 					case TK_NOTYPE:
 						break;
-					case TK_EQ:
+					case TK_EQ:	//==
 						tokens[nr_token++].type=rules[i].token_type;
 						break;
 					case TK_DEC:
@@ -114,6 +122,19 @@ static bool make_token(char *e) {
 				    tokens[nr_token].str[substr_len]='\0';
 						nr_token++;
 						break;
+					case TK_UEQ:	//!=
+						tokens[nr_token++].type=rules[i].token_type;
+						break;
+					case TK_AND:	//&&
+						tokens[nr_token++].type=rules[i].token_type;
+						break;
+					case TK_OR:		//||
+						tokens[nr_token++].type=rules[i].token_type;
+						break;
+
+					case '!':
+						tokens[nr_token++].type=rules[i].token_type;
+						break;
 					case '+':
 						tokens[nr_token++].type=rules[i].token_type;
 				    break;
@@ -132,7 +153,11 @@ static bool make_token(char *e) {
 					case ')':
 						tokens[nr_token++].type=rules[i].token_type;
 				    break;
-          default: TODO();
+					
+
+          default:
+						tokens[nr_token++].type=rules[i].token_type;
+						break;
         }
 
         break;
@@ -160,7 +185,7 @@ int find_dominated_op(int p, int q){
 			count--;
 		}		
 	  else if(count==0){//the expression is not in a pair of parentheses
-			if(tokens[i].type==TK_NEG){
+			if(tokens[i].type==TK_NEG || tokens[i].type=='!' || tokens[i].type==TK_POINTER){
 				if(level<0){
 					level=0;
 					pos=i;
@@ -175,6 +200,24 @@ int find_dominated_op(int p, int q){
 			if(tokens[i].type=='+' || tokens[i].type=='-'){
 				if(level<2){
 					level=2;
+					pos=i;
+				}
+			}
+			if(tokens[i].type==TK_EQ || tokens[i].type==TK_UEQ){
+				if(level<3){
+					level=3;
+					pos=i;
+				}
+			}
+			if(tokens[i].type==TK_AND){
+				if(level<4){
+					level=4;
+					pos=i;
+				}
+			}
+			if(tokens[i].type==TK_OR){
+				if(level<5){
+					level=5;
 					pos=i;
 				}
 			}
@@ -237,12 +280,49 @@ uint32_t eval(int p, int q) {
 
 			//printf("val1 = %d  val2 = %d\n",val1,val2);
       switch(tokens[op].type){
-				case TK_NEG: return  -eval(op+1,q);
-        case '+': return eval(p, op-1) + eval(op+1,q);
-        case '-': return eval(p, op-1) - eval(op+1,q);
-        case '*': return eval(p, op-1) * eval(op+1,q);
-        case '/': return eval(p, op-1) / eval(op+1,q);
+				case TK_EQ:
+					if(eval(p, op-1)== eval(op+1,q)){
+						return true;
+					}else{
+						return false;
+					}
 
+				case TK_UEQ:
+					if(eval(p, op-1) != eval(op+1,q)){
+						return true;
+					}else{
+						return false;
+					}
+
+				case TK_POINTER://todo!!!!!
+					break;
+
+				case TK_AND:
+					return eval(p,op-1) && eval(op+1,q);
+				
+				case TK_OR:
+					return eval(p,op-1) || eval(op+1,q);
+
+				case TK_NEG: return  -eval(op+1,q);
+
+        case '+': 
+					return eval(p, op-1) + eval(op+1,q);
+
+				case '-': 
+					return eval(p, op-1) - eval(op+1,q);
+        
+				case '*': 
+					return eval(p, op-1) * eval(op+1,q);
+
+				case '/': 
+					return eval(p, op-1) / eval(op+1,q);
+
+				case '!':
+					if (eval(op+1,q)!=0){
+						return 0;
+					}else{
+						return 1;
+					}
 				/*case TK_NEG: n=-val2; printf("get %d\n",n); return n;
 				case '+': n= val1 + val2; printf("get %d\n",n); return n;
         case '-': n= val1 - val2; printf("get %d\n",n); return n;
@@ -268,6 +348,7 @@ uint32_t expr(char *e, bool *success) {
 			tokens[i].type=TK_NEG;
 			//printf("minus sign pos is %d\n",i);
 		}
+		//!!!!!if()
 	}
   return eval(0,nr_token-1);
 }
