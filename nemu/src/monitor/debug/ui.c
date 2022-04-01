@@ -140,8 +140,15 @@ static int cmd_x(char *args){
 	}
 	int nums=atoi(time);
 	uint32_t address;
-  sscanf(start,"%x",&address);
-
+	if(start[0]!='0'){
+		bool flag=false;
+		address=expr(start,&flag);
+		if(!flag){
+			printf("The address is wrong!!!\n");
+		}
+	}else{
+  	sscanf(start,"%x",&address);
+	}
 	printf("Address\t\tDword block\tByte sequence\n");
 	printf("---------------------------------------------\n");
 	for(int i=0;i<nums;i++){
