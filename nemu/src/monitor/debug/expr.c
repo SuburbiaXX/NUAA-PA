@@ -267,10 +267,12 @@ uint32_t eval(int p, int q) {
 			if(tokens[p].type==TK_REG){
 			//	printf("%s\n",tokens[p].str);
 				char src[4];
+				printf("%d\n",strlen(tokens[p].str));
+	
 				strncpy(src,tokens[p].str+1,3);
 			//	printf("%s\n",src);
 				printf("%d\n",strlen(src));
-				printf("%d\n",strcmp(src,"eip"));
+				printf("compare res = %d\n",strcmp(src,"eip"));
 				if(strcmp(src,"eip")==0){
 					printf("It's eip\n");
 					res=cpu.eip;
