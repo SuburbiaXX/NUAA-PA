@@ -109,6 +109,7 @@ static int cmd_info(char *args){
   	for (int i=R_EAX; i<=R_EDI; i++){
 			printf("%s:\t0x%08x\t%010d\n",regsl[i-R_EAX], cpu.gpr[i-R_EAX]._32, cpu.gpr[i-R_EAX]._32);
 		}
+		printf("eip:\t0x%08x\t%010d\n",cpu.eip,cpu.eip);
 		printf("----------------------------------\n");
 		printf("16-bit Register:\n");
 		for (int i=R_AX; i<=R_DI; i++){
