@@ -192,18 +192,8 @@ static int cmd_p(char *args){
 }
 
 static int cmd_w(char *args){
-	//char *expression=strtok(NULL," ");
-	/*WP *newPoint=new_wp();
-	bool flag=false;
-	uint32_t res=expr(expression,&flag);
-	if(flag){
-		strcpy(newPoint->expr,expression);
-		newPoint->old_val=res;
-	}
-	printf("Set watchpoint #%d\n",newpoint->NO);
-	printf("expr = %s\n",newpoint->expr);
-	printf("old value = %#x\n",newpoint->old_val);
-	*/
+	char *expression=strtok(NULL," ");
+	printf("%s\n",expression);
 	return 0;
 }
 
@@ -214,7 +204,13 @@ static int cmd_d(char *args){
 		return 0;
 	}
 	int NO=atoi(ch);
-	printf("%d\n",NO);
+	//printf("%d\n",NO);
+	bool flag=delete_watchpoint(NO);
+	if(flag){
+		printf("The watchpoint #%d has been deleted!!!\n",NO);
+	}else{
+		printf("The delete operation failed!!!\n");
+	}
 	return 0;
 }
 
@@ -252,7 +248,6 @@ void ui_mainloop(int is_batch_mode) {
         break;
       }
     }
-
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
   }
 }
