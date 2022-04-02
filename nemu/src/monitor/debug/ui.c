@@ -194,7 +194,13 @@ static int cmd_p(char *args){
 static int cmd_w(char *args){
 	char *expression=strtok(NULL," ");
 	//printf("%s\n",expression);
-	return set_watchpoint(expression);
+	int NO = set_watchpoint(expression);
+	if(NO==-1){
+		printf("Watchpoint full!!!\nFailed to set!!!\n");
+	}else{
+		printf("Watchpoint #%d has been set!!!\n",NO);		
+	}
+	return 0;
 }
 
 static int cmd_d(char *args){
@@ -206,10 +212,9 @@ static int cmd_d(char *args){
 	int NO=atoi(ch);
 	//printf("%d\n",NO);
 	bool flag=delete_watchpoint(NO);
-	if(flag){
-		printf("The watchpoint #%d has been deleted!!!\n",NO);
-	}else{
+	if(!flag){
 		printf("The delete operation failed!!!\nNot found watchpoint #%d\n",NO);
+		//printf("The watchpoint #%d has been deleted!!!\n",NO);
 	}
 	return 0;
 }

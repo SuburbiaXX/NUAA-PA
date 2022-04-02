@@ -59,7 +59,19 @@ void free_wp(WP *wp){
 }
 
 int set_watchpoint(char *e){
-	WP*p=new_wp();	
+	WP*p=new_wp();
+	if(!p){
+		return -1;
+	}
+	strcpy(p->expr,e);
+	bool flag=false;
+	p->old_val=expr(e,&flag);
+	if(flag){
+		printf("Set watchpoint #%d\nexpr = %s\nold_value = %#x\n",p->NO,p->expr,p->old_val);
+	}else{
+		printf("Bad expression!!!\n");
+		return -1;
+	}
 	return p->NO;
 }
 
