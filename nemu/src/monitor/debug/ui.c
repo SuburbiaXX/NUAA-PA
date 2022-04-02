@@ -46,6 +46,10 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
+static int cmd_w(char *args);
+
+static int cmd_d(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -57,9 +61,11 @@ static struct {
   { "si", "Pause after N steps of single-step execution", cmd_si },
   { "info", "Print register status", cmd_info },
 	{ "x", "Scan memory", cmd_x },
-	{ "p", "Expression evaluation", cmd_p},
-  /* TODO: Add more commands */
+	{ "p", "Expression evaluation", cmd_p },
+	{ "w", "Set watchpoint", cmd_w },
+	{ "d", "Delete watchpoint", cmd_d },
 
+  /* TODO: Add more commands */
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -122,10 +128,11 @@ static int cmd_info(char *args){
 			printf("%s:\t0x%02x\t\t%03d\n", regsb[i-R_AH], cpu.gpr[i-R_AH]._8[0], cpu.gpr[i-R_AH]._8[0]);
 		}  
   }else if (strcmp(ch,"w") == 0){
-    
-  }
+		//list_watchpoint();
+	}
   return 0;
 }
+
 
 static int cmd_x(char *args){
 	char *time=strtok(NULL," ");
@@ -181,6 +188,33 @@ static int cmd_p(char *args){
 	}else{
 		printf("Error! Wrong Expression\n");
 	}
+	return 0;
+}
+
+static int cmd_w(char *args){
+	//char *expression=strtok(NULL," ");
+	/*WP *newPoint=new_wp();
+	bool flag=false;
+	uint32_t res=expr(expression,&flag);
+	if(flag){
+		strcpy(newPoint->expr,expression);
+		newPoint->old_val=res;
+	}
+	printf("Set watchpoint #%d\n",newpoint->NO);
+	printf("expr = %s\n",newpoint->expr);
+	printf("old value = %#x\n",newpoint->old_val);
+	*/
+	return 0;
+}
+
+static int cmd_d(char *args){
+	char *ch=strtok(NULL," ");
+	if(ch==NULL){
+		printf("The Correct Format is: \"d NUMBER\"\n");
+		return 0;
+	}
+	int NO=atoi(ch);
+	printf("%d\n",NO);
 	return 0;
 }
 
