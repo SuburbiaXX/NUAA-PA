@@ -128,7 +128,7 @@ static int cmd_info(char *args){
 			printf("%s:\t0x%02x\t\t%03d\n", regsb[i-R_AH], cpu.gpr[i-R_AH]._8[0], cpu.gpr[i-R_AH]._8[0]);
 		}  
   }else if (strcmp(ch,"w") == 0){
-		//list_watchpoint();
+		list_watchpoint();
 	}
   return 0;
 }
@@ -193,8 +193,8 @@ static int cmd_p(char *args){
 
 static int cmd_w(char *args){
 	char *expression=strtok(NULL," ");
-	printf("%s\n",expression);
-	return 0;
+	//printf("%s\n",expression);
+	return set_watchpoint(expression);
 }
 
 static int cmd_d(char *args){
@@ -209,7 +209,7 @@ static int cmd_d(char *args){
 	if(flag){
 		printf("The watchpoint #%d has been deleted!!!\n",NO);
 	}else{
-		printf("The delete operation failed!!!\n");
+		printf("The delete operation failed!!!\nNot found watchpoint #%d\n",NO);
 	}
 	return 0;
 }
