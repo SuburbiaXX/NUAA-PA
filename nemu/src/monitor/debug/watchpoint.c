@@ -98,7 +98,7 @@ void list_watchpoint(){
 		printf("NO\texpr\t\tOld Value\n");
 		WP* p=head;
 		while(p){
-			printf("%d\t%s\t\t%d\n",p->NO,p->expr,p->old_val);
+			printf("%d\t%s\t\t#%x\n",p->NO,p->expr,p->old_val);
 			p=p->next;
 		}
 	}
