@@ -113,19 +113,19 @@ static int cmd_info(char *args){
 		printf("----------------------------------\n");
 		printf("32-bit Register:\n");
   	for (int i=R_EAX; i<=R_EDI; i++){
-			printf("%s:\t0x%08x\t%010d\n",regsl[i-R_EAX], cpu.gpr[i-R_EAX]._32, cpu.gpr[i-R_EAX]._32);
+			printf("%s:\t%#08x\t%010d\n",regsl[i-R_EAX], cpu.gpr[i-R_EAX]._32, cpu.gpr[i-R_EAX]._32);
 		}
-		printf("eip:\t0x%08x\t%010d\n",cpu.eip,cpu.eip);
+		printf("eip:\t%#08x\t%010d\n",cpu.eip,cpu.eip);
 		printf("----------------------------------\n");
 		printf("16-bit Register:\n");
 		for (int i=R_AX; i<=R_DI; i++){
-			printf("%s:\t0x%04x\t\t%05d\n",regsw[i-R_AX], cpu.gpr[i-R_AX]._16, cpu.gpr[i-R_AX]._16);
+			printf("%s:\t%#04x\t\t%05d\n",regsw[i-R_AX], cpu.gpr[i-R_AX]._16, cpu.gpr[i-R_AX]._16);
 		}
 		printf("----------------------------------\n");
 		printf("8-bit Register:\n");
 		for(int i=R_AH;i<=R_BH;i++){
-			printf("%s:\t0x%02x\t\t%03d\n", regsb[i-R_AL], cpu.gpr[i-R_AH]._8[1], cpu.gpr[i-R_AH]._8[1]);
-			printf("%s:\t0x%02x\t\t%03d\n", regsb[i-R_AH], cpu.gpr[i-R_AH]._8[0], cpu.gpr[i-R_AH]._8[0]);
+			printf("%s:\t%#02x\t\t%03d\n", regsb[i-R_AL], cpu.gpr[i-R_AH]._8[1], cpu.gpr[i-R_AH]._8[1]);
+			printf("%s:\t%#02x\t\t%03d\n", regsb[i-R_AH], cpu.gpr[i-R_AH]._8[0], cpu.gpr[i-R_AH]._8[0]);
 		}  
   }else if (strcmp(ch,"w") == 0){
 		list_watchpoint();
@@ -160,7 +160,7 @@ static int cmd_x(char *args){
 	printf("---------------------------------------------\n");
 	for(int i=0;i<nums;i++){
 		uint32_t temp=vaddr_read(address,4);
-		printf("0x%08x:\t0x%08x\t",address,temp);
+		printf("0x%08x:\t%#08x\t",address,temp);
 		address+=4;
 		for(int j=0;j<4;j++){
 			if(j!=3){
@@ -209,7 +209,7 @@ static int cmd_d(char *args){
 		printf("The Correct Format is: \"d NUMBER\"\n");
 		return 0;
 	}
-	int NO=atoi(ch);
+	 int NO=atoi(ch);
 	//printf("%d\n",NO);
 	bool flag=delete_watchpoint(NO);
 	if(!flag){
