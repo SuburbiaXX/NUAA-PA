@@ -1,6 +1,6 @@
 #include "nemu.h"
 #include "monitor/monitor.h"
-
+#include "monitor/watchpoint.h"
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
  * This is useful when you use the `si' command.
@@ -29,7 +29,14 @@ void cpu_exec(uint64_t n) {
 
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
-
+		WP*p=scan_watchpoint();
+		if(p){
+			printf("Hit watchpoint #%d at address %#x\n",p->NO,cpu.eip);
+			printf("expr = %s\n",p->expr);
+			printf("old value = %#x\nnew value = %#x\n",p->old_val,p->new_val);
+			nemu_state = NEMU_STOP;
+			printf("program paused");
+		}
 #endif
 
 #ifdef HAS_IOE
