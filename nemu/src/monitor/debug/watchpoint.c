@@ -106,5 +106,13 @@ void list_watchpoint(){
 
 WP* scan_watchpoint(){
 	WP *p=head;
+	bool flag=false;
+	while(p){
+		p->new_val=expr(p->expr,&flag);
+		if(p->new_val!=p->old_val){
+			return p;
+		}
+		p=p->next;
+	}
 	return p;
 }
