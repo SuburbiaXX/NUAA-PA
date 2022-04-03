@@ -31,11 +31,11 @@ void cpu_exec(uint64_t n) {
     /* TODO: check watchpoints here. */
 		WP*p=scan_watchpoint();
 		if(p){
-			printf("Hit watchpoint #%d at address %#x\n",p->NO,cpu.eip);
+			printf("Hit watchpoint #%d at address %#08x\n",p->NO,cpu.eip);
 			printf("expr = %s\n",p->expr);
-			printf("old value = %#x\nnew value = %#x\n",p->old_val,p->new_val);
+			printf("old value = %#08x\nnew value = %#08x\n",p->old_val,p->new_val);
 			nemu_state = NEMU_STOP;
-			printf("program paused");
+			printf("program paused\n");
 		}
 #endif
 
