@@ -213,7 +213,7 @@ static int cmd_d(char *args){
 	//printf("%d\n",NO);
 	bool flag=delete_watchpoint(NO);
 	if(!flag){
-		printf("The delete operation failed!!!\nNot found watchpoint #%d\n",NO);
+		printf("The delete operation failed!!!\nNot found the watchpoint!!!\n");
 		//printf("The watchpoint #%d has been deleted!!!\n",NO);
 	}
 	return 0;
