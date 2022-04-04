@@ -184,7 +184,8 @@ static int cmd_p(char *args){
 	int res = expr(args,&flag);
 	if(flag){
 	//	printf("The answer is %d\n",res);
-		printf("%d\n",res);
+		printf("(DEC) = %d\n",res);
+		printf("(HEX) = %#010x",res);
 	}else{
 		printf("Error! Wrong Expression\n");
 	}
@@ -194,6 +195,10 @@ static int cmd_p(char *args){
 static int cmd_w(char *args){
 	char *expression=strtok(NULL," ");
 	//printf("%s\n",expression);
+	if(expression==NULL){
+		printf("The Correct Format is: \"w Expression\"\n");
+		return 0;
+	}
 	int NO = set_watchpoint(expression);
 	if(NO==-1){
 		printf("Watchpoint full!!!\nFailed to set!!!\n");
@@ -209,7 +214,7 @@ static int cmd_d(char *args){
 		printf("The Correct Format is: \"d NUMBER\"\n");
 		return 0;
 	}
-	 int NO=atoi(ch);
+	int NO=atoi(ch);
 	//printf("%d\n",NO);
 	bool flag=delete_watchpoint(NO);
 	if(!flag){
