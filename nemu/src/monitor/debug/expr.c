@@ -321,9 +321,7 @@ uint32_t eval(int p, int q) {
 				case TK_OR:
 					return eval(p,op-1) || eval(op+1,q);
 
-				case TK_NEG:// return  -eval(op+1,q);
-					val2=eval(op+1,q);
-					return -val2;
+				case TK_NEG: return  -eval(op+1,q);
 
         case '+': 
 					return eval(p, op-1) + eval(op+1,q);
