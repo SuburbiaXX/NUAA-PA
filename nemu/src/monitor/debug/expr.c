@@ -186,7 +186,7 @@ int find_dominated_op(int p, int q){
 		}		
 	  else if(count==0){//the expression is not in a pair of parentheses
 			if(tokens[i].type==TK_NEG || tokens[i].type=='!' || tokens[i].type==TK_POINTER){
-				if(level<=0){
+				if(level<0){
 					level=0;
 					pos=i;
 				}
