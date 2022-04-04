@@ -185,7 +185,7 @@ static int cmd_p(char *args){
 	if(flag){
 	//	printf("The answer is %d\n",res);
 		printf("(DEC) = %d\n",res);
-		printf("(HEX) = %#010x",res);
+		printf("(HEX) = %#010x\n",res);
 	}else{
 		printf("Error! Wrong Expression\n");
 	}
