@@ -186,37 +186,37 @@ int find_dominated_op(int p, int q){
 		}		
 	  else if(count==0){//the expression is not in a pair of parentheses
 			if(tokens[i].type==TK_NEG || tokens[i].type=='!' || tokens[i].type==TK_POINTER){
-				if(level<0){
+				if(level<=0){
 					level=0;
 					pos=i;
 				}
 			}
 			if(tokens[i].type=='*' || tokens[i].type=='/'){
-				if(level<1){
+				if(level<=1){
 					level=1;
 					pos=i;
 				}
 			}
 			if(tokens[i].type=='+' || tokens[i].type=='-'){
-				if(level<2){
+				if(level<=2){
 					level=2;
 					pos=i;
 				}
 			}
 			if(tokens[i].type==TK_EQ || tokens[i].type==TK_UEQ){
-				if(level<3){
+				if(level<=3){
 					level=3;
 					pos=i;
 				}
 			}
 			if(tokens[i].type==TK_AND){
-				if(level<4){
+				if(level<=4){
 					level=4;
 					pos=i;
 				}
 			}
 			if(tokens[i].type==TK_OR){
-				if(level<5){
+				if(level<=5){
 					level=5;
 					pos=i;
 				}
