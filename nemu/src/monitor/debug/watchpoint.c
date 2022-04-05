@@ -4,8 +4,7 @@
 #define NR_WP 32
 
 static WP wp_pool[NR_WP];
-static WP *head, *free;
-//free_
+static WP *head, *free_;
 
 void init_wp_pool() {
   int i;
@@ -16,25 +15,24 @@ void init_wp_pool() {
   wp_pool[NR_WP - 1].next = NULL;
 
   head = NULL;
-  //free_ = wp_pool;
-  free = wp_pool;	
+  free_ = wp_pool;
 }
 
 /* TODO: Implement the functionality of watchpoint */
 WP* new_wp(){
 	if(head==NULL){
 		init_wp_pool();
-		head=free;
-		free=free->next;
+		head=free_;
+		free_=free_->next;
 		head->next=NULL;
 		return head;	
 	}else{
 		//assert(free_!=NULL);
-		WP *p=free;
+		WP *p=free_;
 		if(p==NULL){
 			return p;
 		}
-		free=free->next;
+		free_=free_->next;
 		p->next=head;
 		head=p;
 		return p;
@@ -45,15 +43,15 @@ void free_wp(WP *wp){
 	WP *p=head,*q=p->next;
 	if(p==wp){//delete the head
 		head=q;
-		p->next=free;
-		free=p;
+		p->next=free_;
+		free_=p;
 		printf("Watchpoint %d has been deleted!!!\n",wp->NO);
 	}else{
 		while(q){
 			if(q==wp){
 				p->next=q->next;
-				q->next=free;
-				free=q;
+				q->next=free_;
+				free_=q;
 
 				printf("Watchpoint %d has been deleted!!!\n",wp->NO);
 				break;
@@ -75,7 +73,7 @@ int set_watchpoint(char *e){
 	if(flag){
 		printf("Set watchpoint #%d\nexpr = %s\nold_value = %#08x\n",p->NO,p->expr,p->old_val);
 	}else{
-		printf("Bad expression!!!\n");
+		free_wp(p);
 		return -1;
 	}
 	return p->NO;

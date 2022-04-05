@@ -201,7 +201,7 @@ static int cmd_w(char *args){
 	}
 	int NO = set_watchpoint(expression);
 	if(NO==-1){
-		printf("Watchpoint full!!!\nFailed to set!!!\n");
+		printf("Bad expression OR watchpoint full!!!\nFailed to set!!!\n");
 	}else{
 		printf("Watchpoint #%d has been set!!!\n",NO);		
 	}
