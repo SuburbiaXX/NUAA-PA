@@ -7,8 +7,18 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
-  TODO();
-
+  rtlreg_t temp1,temp2,temp3;
+	rtl_sub(&temp1,&id_dest->val,&id_src->val);
+	operand_write(id_dest,&temp1);
+	//update eflags status
+	rtl_update_ZFSF(&temp1,id_dest->width);
+	rtl_sltu(&temp2,&id_dest->val,&temp1);
+	rtl_set_CF(&temp2);
+	rtl_xor(&temp2,&id_dest->val,&id_src->val);
+	rtl_xor(&temp3,&id_dest->val,&temp1);
+	rtl_and(&temp2,&temp2,&temp3);
+	rtl_msb(&temp2,&temp2,id_dest->width);
+	rtl_set_OF(&temp2);
   print_asm_template2(sub);
 }
 
