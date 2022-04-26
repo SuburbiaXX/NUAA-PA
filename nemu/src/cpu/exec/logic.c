@@ -7,15 +7,20 @@ make_EHelper(test) {
 }
 
 make_EHelper(and) {
-  TODO();
-
+  rtlreg_t temp;
+	rtl_and(&temp,&id_dest->val,&id_src->val);
+	operand_write(id_dest,&temp);
+	rtl_update_ZFSF(&temp,id_dest->width);
+	temp=0;
+	rtl_set_OF(&temp);
+	rtl_set_CF(&temp);
   print_asm_template2(and);
 }
 
 make_EHelper(xor) {
-  rtl_set_CF(0);
-	rtl_set_OF(0);
-	rtlreg_t temp;
+	rtlreg_t temp=0;
+  rtl_set_CF(&temp);
+	rtl_set_OF(&temp);
 	rtl_xor(&temp,&id_dest->val,&id_src->val);
 	operand_write(id_dest,&temp);
 	rtl_update_ZFSF(&id_dest->val,id_dest->width);
