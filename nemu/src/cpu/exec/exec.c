@@ -56,12 +56,12 @@ make_group(gp3,
 
   /* 0xfe */
 make_group(gp4,
-    EMPTY, EMPTY, EMPTY, EMPTY,
+    EXW(inc,1), EMPTY, EMPTY, EMPTY,
     EMPTY, EMPTY, EMPTY, EMPTY)
 
   /* 0xff */
 make_group(gp5,
-    EMPTY, EMPTY, EMPTY, EX(call),
+    EX(inc), EMPTY, EMPTY, EX(call),
     EMPTY, EX(jmp), EX(push), EMPTY)
 
   /* 0x0f 0x01*/
@@ -88,8 +88,8 @@ opcode_entry opcode_table [512] = {
   /* 0x34 */	IDEXW(I2a,xor,1), IDEXW(I2a,xor,0), EMPTY, EMPTY,
   /* 0x38 */	IDEXW(G2E,cmp,1), IDEXW(G2E,cmp,0), IDEXW(E2G,cmp,1), IDEXW(E2G,cmp,0),
   /* 0x3c */	IDEXW(I2a,cmp,1), IDEXW(I2a,cmp,0), EMPTY, EMPTY,
-  /* 0x40 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x44 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x40 */	IDEXW(r,inc,0), IDEXW(r,inc,0), IDEXW(r,inc,0), IDEXW(r,inc,0),
+  /* 0x44 */	IDEXW(r,inc,0), IDEXW(r,inc,0), IDEXW(r,inc,0), IDEXW(r,inc,0),
   /* 0x48 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x4c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x50 */	IDEXW(r,push,4), IDEXW(r,push,4), IDEXW(r,push,4), IDEXW(r,push,4),
