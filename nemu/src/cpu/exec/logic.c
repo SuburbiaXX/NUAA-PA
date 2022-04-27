@@ -28,8 +28,13 @@ make_EHelper(xor) {
 }
 
 make_EHelper(or) {
-  TODO();
-
+  rtlreg_t temp1;
+	rtl_or(&temp1,&id_dest->val,&id_src->val);
+	operand_write(id_dest,&temp1);
+	rtl_update_ZFSF(&temp1,id_dest->width);
+	temp1=0;
+	rtl_set_OF(&temp1);
+	rtl_set_CF(&temp1);
   print_asm_template2(or);
 }
 
