@@ -58,8 +58,15 @@ make_EHelper(inc) {
 }
 
 make_EHelper(dec) {
-  TODO();
-
+  rtlreg_t temp1,temp2,temp3=1;
+	rtl_subi(&temp1,&id_dest->val,1);
+	rtl_update_ZFSF(&temp1,id_dest->width);
+	rtl_xor(&temp2,&id_dest->val,&temp3);
+	rtl_xor(&temp3,&id_dest->val,&temp1);
+	rtl_and(&temp3,&temp2,&temp3);
+	rtl_msb(&temp3,&temp3,id_dest->width);
+	rtl_set_OF(&temp3);
+	operand_write(id_dest,&temp1);
   print_asm_template1(dec);
 }
 
