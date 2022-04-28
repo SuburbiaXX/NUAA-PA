@@ -36,11 +36,18 @@ make_EHelper(leave) {
 }
 
 make_EHelper(cltd) {
+	rtlreg_t temp;
   if (decoding.is_operand_size_16) {
-    TODO();
+    rtl_lr_w(&temp,R_AX);
+		rtl_sext(&temp,&temp,2);
+		rtl_sari(&temp,&temp,16);
+		rtl_sr_w(R_DX,&temp);	
   }
   else {
-    TODO();
+    rtl_lr_l(&temp,R_EAX);
+		rtl_sari(&temp,&temp,31);
+		rtl_sari(&temp,&temp,1);
+		rtl_sr_l(R_EDX,&temp);
   }
 
   print_asm(decoding.is_operand_size_16 ? "cwtl" : "cltd");
