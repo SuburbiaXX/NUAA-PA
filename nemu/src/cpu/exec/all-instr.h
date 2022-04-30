@@ -38,3 +38,4 @@ make_EHelper(cltd);
 make_EHelper(idiv);
 make_EHelper(movsx);
 make_EHelper(mul);
+make_EHelper(call_rm);
