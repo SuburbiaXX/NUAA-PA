@@ -41,7 +41,7 @@ static make_EHelper(name) { \
 
 /* 0x80, 0x81, 0x83 */
 make_group(gp1,
-    EX(add), EX(or), EX(adc), EMPTY,
+    EX(add), EX(or), EX(adc), EX(sbb),
     EX(and), EX(sub), EX(xor), EX(cmp))
 
   /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
@@ -78,8 +78,8 @@ opcode_entry opcode_table [512] = {
   /* 0x0c */	IDEXW(I2a,or,1), IDEXW(I2a,or,0), EMPTY, EX(2byte_esc),
   /* 0x10 */	IDEXW(G2E,adc,1), IDEXW(G2E,adc,0), IDEXW(E2G,adc,1), IDEXW(E2G,adc,0),
   /* 0x14 */	IDEXW(I2a,adc,1), IDEXW(I2a,adc,0), EMPTY, EMPTY,
-  /* 0x18 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x1c */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x18 */	IDEXW(G2E,sbb,1), IDEXW(G2E,sbb,0), IDEXW(E2G,sbb,1), IDEXW(E2G,sbb,0),
+  /* 0x1c */	IDEXW(I2a,sbb,1), IDEXW(I2a,sbb,0), EMPTY, EMPTY,
   /* 0x20 */	IDEXW(G2E,and,1), IDEXW(G2E,and,0), IDEXW(E2G,and,1), IDEXW(E2G,and,0),
   /* 0x24 */	IDEXW(I2a,and,1), IDEXW(I2a,and,0), EMPTY, EMPTY,
   /* 0x28 */	IDEXW(G2E,sub,1), IDEXW(G2E,sub,0), IDEXW(E2G,sub,1), IDEXW(E2G,sub,0),
