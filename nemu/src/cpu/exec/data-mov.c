@@ -54,13 +54,17 @@ make_EHelper(cltd) {
 }
 
 make_EHelper(cwtl) {
+	rtlreg_t temp;
   if (decoding.is_operand_size_16) {
-    TODO();
-  }
+    rtl_lr_b(&temp,R_AX);
+		rtl_sext(&temp,&temp,1);
+		rtl_sr_w(R_AX,&temp);
+	}
   else {
-    TODO();
+		rtl_lr_w(&temp,R_AX);
+		rtl_sext(&temp,&temp,2);
+		rtl_sr_l(R_EAX,&temp); 
   }
-
   print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");
 }
 
