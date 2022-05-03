@@ -84,7 +84,13 @@ make_EHelper(not) {
 }
 
 make_EHelper(rol) {
-  TODO();
-  
+ 	rtlreg_t temp1,temp2,temp3;
+	for(temp1=0;temp1<id_src->val;temp1++){
+		rtl_shri(&temp2,&id_dest->val,id_dest->width*8-1);//Highest position
+		rtl_shli(&temp3,&id_dest->val,1);
+		id_dest->val=temp1+temp2;
+	}
+	rtl_set_CF(&temp1);
+	operand_write(id_dest,&id_dest->val);
   print_asm_template2(rol);
 }
