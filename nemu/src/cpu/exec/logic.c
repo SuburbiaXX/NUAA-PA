@@ -84,25 +84,13 @@ make_EHelper(not) {
 }
 
 make_EHelper(rol) {
-// 	rtlreg_t temp1,temp2,temp3;
-//	for(temp1=0;temp1<id_src->val;temp1++){
-//		rtl_shri(&temp2,&id_dest->val,id_dest->width*8-1);//Highest position
-//		rtl_shli(&temp3,&id_dest->val,1);
-//		id_dest->val=temp1+temp2;
-//	}
-//	rtl_set_CF(&temp1);
-//	operand_write(id_dest,&id_dest->val);
-//  print_asm_template2(rol);
-
-  int i=0;
-  rtlreg_t q;
-  while(i<id_src->val){
-	  rtl_shri(&t1,&id_dest->val,id_dest->width*8-1);
-      rtl_shli(&q,&id_dest->val,1);
-      id_dest->val=t1+q;
-	  i++;
-  }
-  rtl_set_CF(&t1);
-  operand_write(id_dest,&id_dest->val);
+ 	rtlreg_t temp1,temp2,temp3;
+	for(temp1=0;temp1<id_src->val;temp1++){
+		rtl_shri(&temp2,&id_dest->val,id_dest->width*8-1);//Highest position
+		rtl_shli(&temp3,&id_dest->val,1);
+		id_dest->val=temp2+temp3;
+	}
+	rtl_set_CF(&temp1);
+	operand_write(id_dest,&id_dest->val);
   print_asm_template2(rol);
 }
