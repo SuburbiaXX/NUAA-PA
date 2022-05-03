@@ -71,8 +71,17 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-  TODO();
-
+  rtlreg_t temp1,temp2;
+	temp1=(id_dest->val==0)?0:1;
+	rtl_set_CF(&temp1);
+	temp2=-id_dest->val;
+	operand_write(id_dest,&temp2);
+	rtl_update_ZFSF(&temp2,id_dest->width);
+	
+	rtl_xor(&temp1,&temp2,&id_dest->val);
+	rtl_not(&temp1);
+	rtl_msb(&temp1,&temp1,id_dest->width);
+	rtl_set_OF(&temp1);
   print_asm_template1(neg);
 }
 
