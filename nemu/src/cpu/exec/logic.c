@@ -1,75 +1,43 @@
 #include "cpu/exec.h"
 
 make_EHelper(test) {
-//  rtlreg_t temp=0;
-//	rtl_set_CF(&temp);
-//	rtl_set_OF(&temp);
-//	rtl_and(&temp,&id_dest->val,&id_src->val);
-//	rtl_update_ZFSF(&temp,id_dest->width);
-//	print_asm_template2(test);
-
-  rtl_and(&t0,&id_dest->val,&id_src->val);
-  rtlreg_t k=0;
-  rtl_update_ZFSF(&t0,id_dest->width);
-  rtl_set_OF(&k);
-  rtl_set_CF(&k);
-  print_asm_template2(test);
+  rtlreg_t temp=0;
+	rtl_set_CF(&temp);
+	rtl_set_OF(&temp);
+	rtl_and(&temp,&id_dest->val,&id_src->val);
+	rtl_update_ZFSF(&temp,id_dest->width);
+	print_asm_template2(test);
 }
 
 make_EHelper(and) {
-//  rtlreg_t temp;
-//	rtl_and(&temp,&id_dest->val,&id_src->val);
-//	operand_write(id_dest,&temp);
-//	rtl_update_ZFSF(&temp,id_dest->width);
-//	temp=0;
-//	rtl_set_OF(&temp);
-//	rtl_set_CF(&temp);
-//  print_asm_template2(and);
-
-	
-    rtl_and(&t1, &id_dest->val, &id_src->val);
-    operand_write(id_dest, &t1);
-    rtl_update_ZFSF(&t1, id_dest->width); 
-    rtlreg_t k=0;
-    rtl_set_OF(&k); 
-    rtl_set_CF(&k); 
-    print_asm_template2(and);
+  rtlreg_t temp;
+	rtl_and(&temp,&id_dest->val,&id_src->val);
+	operand_write(id_dest,&temp);
+	rtl_update_ZFSF(&temp,id_dest->width);
+	temp=0;
+	rtl_set_OF(&temp);
+	rtl_set_CF(&temp);
+  print_asm_template2(and);
 }
 
 make_EHelper(xor) {
-//	rtlreg_t temp=0;
-//  rtl_set_CF(&temp);
-//	rtl_set_OF(&temp);
-//	rtl_xor(&temp,&id_dest->val,&id_src->val);
-//	operand_write(id_dest,&temp);
-//	rtl_update_ZFSF(&id_dest->val,id_dest->width);
-//  print_asm_template2(xor);
-
-  rtl_xor(&t0,&id_dest->val,&id_src->val);
-  operand_write(id_dest,&t0);
-  rtlreg_t k=0;
-  rtl_set_OF(&k);
-  rtl_set_CF(&k);
-  rtl_update_ZFSF(&id_dest->val,id_dest->width);
+	rtlreg_t temp=0;
+  rtl_set_CF(&temp);
+	rtl_set_OF(&temp);
+	rtl_xor(&temp,&id_dest->val,&id_src->val);
+	operand_write(id_dest,&temp);
+	rtl_update_ZFSF(&id_dest->val,id_dest->width);
   print_asm_template2(xor);
 }
 
 make_EHelper(or) {
-//  rtlreg_t temp1;
-//	rtl_or(&temp1,&id_dest->val,&id_src->val);
-//	operand_write(id_dest,&temp1);
-//	rtl_update_ZFSF(&temp1,id_dest->width);
-//	temp1=0;
-//	rtl_set_OF(&temp1);
-//	rtl_set_CF(&temp1);
-//  print_asm_template2(or);
-
-  rtl_or(&t0,&id_dest->val,&id_src->val);
-  operand_write(id_dest,&t0);
-  rtlreg_t k=0;
-  rtl_update_ZFSF(&t0,id_dest->width);
-  rtl_set_OF(&k);
-  rtl_set_CF(&k);
+  rtlreg_t temp1;
+	rtl_or(&temp1,&id_dest->val,&id_src->val);
+	operand_write(id_dest,&temp1);
+	rtl_update_ZFSF(&temp1,id_dest->width);
+	temp1=0;
+	rtl_set_OF(&temp1);
+	rtl_set_CF(&temp1);
   print_asm_template2(or);
 }
 
