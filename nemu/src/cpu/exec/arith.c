@@ -72,7 +72,7 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-/*  rtlreg_t temp1,temp2;
+  rtlreg_t temp1,temp2;
 	temp1=(id_dest->val==0)?0:1;
 	rtl_set_CF(&temp1);
 	temp2=-id_dest->val;
@@ -83,19 +83,6 @@ make_EHelper(neg) {
 	rtl_not(&temp1);
 	rtl_msb(&temp1,&temp1,id_dest->width);
 	rtl_set_OF(&temp1);
-  print_asm_template1(neg);
-*/
-	 rtlreg_t k,i,j;
-  k=(id_dest->val==0)?0:1;
-  rtl_set_CF(&k);
-  i=-id_dest->val;
-  operand_write(id_dest,&i);
-  rtl_update_ZFSF(&i, id_dest->width);
-  rtl_xor(&j, &id_dest->val, &id_src->val);
-  rtl_xor(&i, &id_dest->val, &t2);
-  rtl_and(&j,&i,&j);
-  rtl_msb(&j,&j,id_dest->width);
-  rtl_set_OF(&j);
   print_asm_template1(neg);
 }
 

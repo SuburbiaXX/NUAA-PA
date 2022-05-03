@@ -34,6 +34,9 @@ make_EHelper(call) {
 make_EHelper(ret) {
   rtl_pop(&decoding.jmp_eip);
 	decoding.is_jmp=1;
+	if(decoding.opcode==0xc2){
+		cpu.esp+=id_dest->val;
+	}
   print_asm("ret");
 }
 
