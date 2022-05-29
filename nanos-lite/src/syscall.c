@@ -30,7 +30,7 @@ static inline uintptr_t sys_close(uintptr_t fd) {
 
 static inline uintptr_t sys_brk(uintptr_t new_brk) {
   //TODO();
-  return 1;
+  return 0;
 }
 
 static inline uintptr_t sys_none(_RegSet *r) {
