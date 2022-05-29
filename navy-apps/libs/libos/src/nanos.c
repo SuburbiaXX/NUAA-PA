@@ -26,12 +26,12 @@ int _open(const char *path, int flags, mode_t mode) {
 }
 
 int _write(int fd, void *buf, size_t count){
-  _syscall_(SYS_write,fd,(uintptr_t)buf,count);
+  return _syscall_(SYS_write,fd,(uintptr_t)buf,count);
 }
 
 extern char _end;
+static intptr_t brk=(intptr_t)&_end;//begin position
 void *_sbrk(intptr_t increment){
-	static intptr_t brk=(intptr_t)&_end;//begin position
 	intptr_t pre = brk;
 	intptr_t cur = pre + increment;
 	intptr_t res = _syscall_(SYS_brk,cur,0,0);
