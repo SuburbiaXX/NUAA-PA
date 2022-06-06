@@ -21,7 +21,17 @@ make_EHelper(mov_r2cr) {
 }
 
 make_EHelper(mov_cr2r) {
-  TODO();
+  switch(id_dest->reg){
+		case 0:
+			cpu.cr0.val=id_src->val;
+			break;
+		case 3:
+			cpu.cr3.val=id_src->val;
+			break;
+		default:
+			assert(0);
+			break;
+	}
 
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
 
