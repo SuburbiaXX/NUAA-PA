@@ -33,11 +33,15 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 paddr_t page_translate(vaddr_t vaddr,bool is_write){
 	PDE pde;
 	PTE pte;
-	Log("vaddr:%#x",vaddr);
-	Log("CR3:%#x",cpu.cr3.page_directory_base);
+	
+	//Log("vaddr:%#x",vaddr);
+	//Log("CR3:%#x",cpu.cr3.page_directory_base);
+	
 	//vaddr右移22位取出高10位的DIR
 	uint32_t DIR = (vaddr>>22);
-	Log("DIR:%#x",DIR);
+	
+	//Log("DIR:%#x",DIR);
+	
 	//DIR乘4与cr3寄存器的高20位相加
 	uint32_t PDE_addr=(cpu.cr3.page_directory_base<<12)+(DIR<<2);
 	//访问存储找到页表地址
